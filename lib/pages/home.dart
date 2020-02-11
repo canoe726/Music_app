@@ -13,7 +13,6 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-
   int _selectedIndex = 0;
   final List<Widget> pages = [
     homePage(
@@ -43,10 +42,6 @@ class _homeState extends State<home> {
         backgroundColor: const Color(0xFF34558b),
         centerTitle: true,
         elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-        ),
         title: TextButton(
           buttonName: 'SOUND CLOUD',
           onPressed: () {},
@@ -63,13 +58,188 @@ class _homeState extends State<home> {
           )
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(child: Text(''),),
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        child: Icon(Icons.person),
+                        radius: 30.0,
+                      ),
+                      SizedBox(width: 20.0),
+                      Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                '김영배 ',
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  color: const Color(0xFF34558b),
+                                  fontFamily: 'Nanum',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '님의 계정',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                  color: Colors.grey[600],
+                                  fontFamily: 'Nanum',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            'songs@gmail.com',
+                            style: TextStyle(
+                              color: const Color(0xFF34558b),
+                              fontFamily: 'Nanum',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                  Icons.date_range,
+                  color: Colors.black,
+              ),
+              title: Text(
+                'TIMELINE',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.queue_music,
+                color: Colors.black,
+              ),
+              title: Text(
+                'PLAYLIST',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.message,
+                color: Colors.black,
+              ),
+              title: Text(
+                'MESSAGE',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.history,
+                color: Colors.black,
+              ),
+              title: Text(
+                'HISTORY',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.notification_important,
+                color: Colors.black,
+              ),
+              title: Text(
+                'NOTICE',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.call,
+                color: Colors.black,
+              ),
+              title: Text(
+                'CONTACT',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Nanum',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
+            ),
+            SizedBox(height: 99.0),
+            Container(
+              color: const Color(0xFF34558b),
+              child: ListTile(
+                title: Center(
+                  child: Text(
+                    '로그아웃',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Nanum',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                onTap: () {},
+              ),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF34558b),
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        showSelectedLabels: true,
+        showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: Colors.white,
+        selectedItemColor: Colors.grey,
         unselectedItemColor: Colors.white,
         onTap: onItemTapped,
         items: [
