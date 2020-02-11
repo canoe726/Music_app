@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:music_app/pages/homePage.dart';
 import 'package:music_app/pages/musicListPage.dart';
+import 'package:music_app/pages/messagePage.dart';
+import 'package:music_app/pages/musicInfoPage.dart';
+import 'package:music_app/pages/profilePage.dart';
 
 class home extends StatefulWidget {
   @override
@@ -13,10 +17,19 @@ class _homeState extends State<home> {
   int _selectedIndex = 0;
   final List<Widget> pages = [
     homePage(
-      key: PageStorageKey('Page1'),
+      key: PageStorageKey('homePage'),
     ),
     musicListPage(
-      key: PageStorageKey('Page2'),
+      key: PageStorageKey('musicListPage'),
+    ),
+    messagePage(
+      key: PageStorageKey('messagePage'),
+    ),
+    musicInfoPage(
+      key: PageStorageKey('musicInfoPage'),
+    ),
+    profilePage(
+      key: PageStorageKey('profilePage'),
     ),
   ];
 
@@ -66,7 +79,7 @@ class _homeState extends State<home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_music),
-            title: Text('MUSCI LIST'),
+            title: Text('MUSIC LIST'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
