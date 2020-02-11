@@ -12,6 +12,7 @@ Music share &amp; donation app
 
 ## Development rule
 - Naming
+
 기본적으로 카멜 케이스 방식
 1) 첫 번째 단어는 모두 소문자
 2) 두 번째 단어부터는 시작 글자만 대문자
