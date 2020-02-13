@@ -8,7 +8,7 @@ Music share &amp; donation app
 
 ## Project plan
 - 1주차 : ~ 2월 12일 까지 / 인트로+메인 위(경수), 구글 계정 로그인 화면+메인 아래(영배)
-- 2주차 : 
+- 2주차 : ~ 2월 19일 까지 / 깃허브 강의듣기(공동), 메인 사진 여러개+대화 페이지 구성(경수), 메인 carousel+음악 정보 페이지 구성(영배)
 
 ## Development rule
 - Naming
