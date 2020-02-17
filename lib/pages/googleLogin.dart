@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class googleLogin extends StatefulWidget {
+class GoogleLogin extends StatefulWidget {
   @override
-  _googleLoginState createState() => _googleLoginState();
+  _GoogleLoginState createState() => _GoogleLoginState();
 }
 
-class _googleLoginState extends State<googleLogin> {
+class _GoogleLoginState extends State<GoogleLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

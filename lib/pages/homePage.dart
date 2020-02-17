@@ -1,15 +1,28 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:imagebutton/imagebutton.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-class homePage extends StatefulWidget {
-  homePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _homePageState createState() => _homePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _HomePageState extends State<HomePage> {
+
+  int _current = 0;
+  List<Map<String, String>> carouselList = [
+    {"avatar": "assets/beenzinoProfile.jpg", "title_name":"빈지노", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boogie on & on", "album_cover":"assets/beenzinoAlbum.jpg"},
+    {"avatar": "assets/changmoProfile.jpg", "title_name":"창모", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boyhood", "album_cover":"assets/changmoAlbum.jpg"},
+    {"avatar": "assets/beenzinoProfile.jpg", "title_name":"빈지노", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boogie on & on", "album_cover":"assets/beenzinoAlbum.jpg"},
+    {"avatar": "assets/changmoProfile.jpg", "title_name":"창모", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boyhood", "album_cover":"assets/changmoAlbum.jpg"},
+  ];
+
+  List dotted = [0, 1, 2, 3];
 
   @override
   Widget build(BuildContext context) {
@@ -20,56 +33,89 @@ class _homePageState extends State<homePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Center(
-                child: Card(
-                  elevation: 5.0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
-                          backgroundColor: Colors.transparent,
-                        ),
-                        title: Text('빈지노 님이 게시물을 올렸습니다'),
-                      ),
-                      Text(
-                        'Boogie on & on',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontFamily: 'Nanum'
-                        ),
-                      ),
-                      SizedBox(height: 5.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            icon:Icon(Icons.arrow_left),
-                            onPressed: () {},
-                          ),
-                          Expanded(
-                            child: ImageButton(
-                              children: <Widget>[],
-                              width: 130,
-                              height: 130,
-                              paddingTop: 5,
-                              pressedImage: Image.asset(
-                                "assets/beenzinoAlbum.jpg",
+                child: Stack(
+                  children: [
+                    CarouselSlider(
+                      height: 250.0,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                      items: carouselList.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Card(
+                                  elevation: 5.0,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundImage: AssetImage('${i["avatar"]}'),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                        title: Text('${i["title_name"]}' + " " + '${i["title_content"]}'),
+                                      ),
+                                      Text(
+                                        '${i["album_title"]}',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontFamily: 'Nanum'
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.0),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: ImageButton(
+                                              children: <Widget>[],
+                                              width: 130,
+                                              height: 130,
+                                              paddingTop: 5,
+                                              pressedImage: Image.asset(
+                                                  '${i["album_cover"]}',
+                                              ),
+                                              unpressedImage: Image.asset('${i["album_cover"]}'),
+                                              onTap: () {},
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 15.0),
+                                    ],
+                                  ),
+                                ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    Positioned(
+                        bottom: 5.0,
+                        left: 0.0,
+                        right: 0.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: dotted.map((i) {
+                            return Container(
+                              width: 8.0,
+                              height: 8.0,
+                              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _current == i ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4)
                               ),
-                              unpressedImage: Image.asset("assets/beenzinoAlbum.jpg"),
-                              onTap: () {},
-                            ),
-                          ),
-                          IconButton(
-                            icon:Icon(Icons.arrow_right),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15.0),
-                    ],
-                  ),
-                ),
+                            );
+                          }).toList(),
+                        )
+                    )
+                  ]
+                )
               ),
               SizedBox(height: 10),
               Row(

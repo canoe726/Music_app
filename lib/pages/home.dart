@@ -7,27 +7,27 @@ import 'package:music_app/pages/messagePage.dart';
 import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
 
-class home extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _homeState createState() => _homeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   final List<Widget> pages = [
-    homePage(
+    HomePage(
       key: PageStorageKey('homePage'),
     ),
-    musicListPage(
+    MusicListPage(
       key: PageStorageKey('musicListPage'),
     ),
-    messagePage(
+    MessagePage(
       key: PageStorageKey('messagePage'),
     ),
-    musicInfoPage(
+    MusicInfoPage(
       key: PageStorageKey('musicInfoPage'),
     ),
-    profilePage(
+    ProfilePage(
       key: PageStorageKey('profilePage'),
     ),
   ];
