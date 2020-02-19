@@ -61,9 +61,9 @@ flutter:
   fonts:
    - family: Futura
      fonts:
-       - asset: fonts/Futura Bold Italic font.ttf
-       - asset: fonts/futura medium bt.ttf
-       - asset: fonts/Futura Medium Italic font.ttf
+       - asset: fonts/FuturaBoldItalicfont.ttf
+       - asset: fonts/futuramediumbt.ttf
+       - asset: fonts/FuturaMediumItalicfont.ttf
    - family : Nanum
      fonts:
        - asset: fonts/NanumSquareB.ttf

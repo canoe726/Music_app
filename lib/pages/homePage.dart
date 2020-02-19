@@ -24,6 +24,10 @@ class _HomePageState extends State<HomePage> {
 
   List dotted = [0, 1, 2, 3];
 
+  List<String> gridImgs = ["assets/gridSample1.png", "assets/gridSample2.png", "assets/gridSample3.png", "assets/gridSample4.png",
+                      "assets/gridSample5.png","assets/gridSample6.png","assets/gridSample7.png","assets/gridSample8.png",
+                      "assets/gridSample9.png","assets/gridSample10.png"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,12 +149,21 @@ class _HomePageState extends State<HomePage> {
               ),
               Center(
                 child: Container(
-                  color: const Color(0xFF34558b),
                   width: double.infinity,
                   height: 200,
-                  child: Center(child: Text('LIKED ALBUM IMAGE')),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GridView.builder(
+                      itemCount: gridImgs.length,
+                      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
+                      itemBuilder: (BuildContext context, int index){
+                        return Image.asset(gridImgs[index]);
+                      },
+                    ),
+                  )
                 ),
               ),
+
               SizedBox(height: 10),
               Row(
                 children: <Widget>[
@@ -179,10 +192,18 @@ class _HomePageState extends State<HomePage> {
               ),
               Center(
                 child: Container(
-                  color: const Color(0xFF34558b),
                   width: double.infinity,
                   height: 200,
-                  child: Center(child: Text('REPOSTED ALBUM IMAGE')),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GridView.builder(
+                      itemCount: gridImgs.length,
+                      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
+                      itemBuilder: (BuildContext context, int index){
+                        return Image.asset(gridImgs[9-index]);
+                      },
+                    ),
+                  )
                 ),
               ),
               SizedBox(height: 10),
