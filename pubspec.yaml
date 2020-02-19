@@ -30,7 +30,7 @@ dev_dependencies:
   imagebutton: ^0.0.6
   bottom_navy_bar: ^5.3.2
   solid_bottom_sheet: ^0.1.9
-
+  carousel_slider: ^1.4.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

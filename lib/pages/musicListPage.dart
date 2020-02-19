@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class musicListPage extends StatefulWidget {
-  musicListPage({Key key}) : super(key: key);
+class MusicListPage extends StatefulWidget {
+  MusicListPage({Key key}) : super(key: key);
 
   @override
-  _musicListPageState createState() => _musicListPageState();
+  _MusicListPageState createState() => _MusicListPageState();
 }
 
-class _musicListPageState extends State<musicListPage> {
+class _MusicListPageState extends State<MusicListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

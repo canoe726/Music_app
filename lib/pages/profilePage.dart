@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class profilePage extends StatefulWidget {
-  profilePage({Key key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  ProfilePage({Key key}) : super(key: key);
 
   @override
-  _profilePageState createState() => _profilePageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _profilePageState extends State<profilePage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
