@@ -12,29 +12,48 @@ class MusicInfoPage extends StatefulWidget {
 
 class _MusicInfoPageState extends State<MusicInfoPage> {
 
+  List<Map<String, String>> festivalList;
+  List<Map<String, String>> peopleList;
+  List<Map<String, String>> concertList;
+
+  List festivalListDotted = [];
+  List peopleListDotted = [];
+  List concertListDotted = [];
+
+  _MusicInfoPageState() {
+
+    festivalList = [
+      {"coverImage": "assets/Poster1.png"},
+      {"coverImage": "assets/Poster2.jpg"},
+      {"coverImage": "assets/Poster3.jpg"},
+    ];
+
+    peopleList = [
+      {"coverImage":"assets/batsagongImage.jpg", "name":"뱃사공"},
+      {"coverImage":"assets/kidImage.jpg", "name":"키드밀리"},
+      {"coverImage":"assets/wuImage.jpg", "name":"우원재"},
+    ];
+
+    concertList = [
+      {"coverImage":"assets/indiePoster.jpg", "name":"인디 나이트"},
+      {"coverImage":"assets/jazzPoster.jpg", "name":"재즈 여행"},
+      {"coverImage":"assets/urbanPoster.png", "name":"어반 음악"},
+    ];
+
+    for(int i=0; i<festivalList.length; i++) {
+      festivalListDotted.add(i);
+    }
+
+    for(int i=0; i<peopleList.length; i++) {
+      peopleListDotted.add(i);
+    }
+
+    for(int i=0; i<concertList.length; i++) {
+      concertListDotted.add(i);
+    }
+  }
+
   int _current = 0;
-
-  List<Map<String, String>> festivalList = [
-    {"coverImage": "assets/Poster1.png"},
-    {"coverImage": "assets/Poster2.jpg"},
-    {"coverImage": "assets/Poster3.jpg"},
-  ];
-
-  List<Map<String, String>> peopleList = [
-    {"coverImage":"assets/batsagongImage.jpg", "name":"뱃사공"},
-    {"coverImage":"assets/kidImage.jpg", "name":"키드밀리"},
-    {"coverImage":"assets/wuImage.jpg", "name":"우원재"},
-  ];
-
-  List<Map<String, String>> concertList = [
-    {"coverImage":"assets/indiePoster.jpg", "name":"인디 나이트"},
-    {"coverImage":"assets/jazzPoster.jpg", "name":"재즈 여행"},
-    {"coverImage":"assets/urbanPoster.png", "name":"어반 음악"},
-  ];
-
-  List festivalList_dotted = [0,1,2];
-  List peopleList_dotted = [0,1,2];
-  List concertList_dotted = [0,1,2];
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +84,9 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
                                     child: Center(
                                       child: ImageButton(
                                         children: <Widget>[],
-                                        width: 230,
-                                        height: 230,
-                                        pressedImage: Image.asset(
-                                          '${i["coverImage"]}',
-                                        ),
+                                        width: double.infinity,
+                                        height: 240,
+                                        pressedImage: Image.asset('${i["coverImage"]}'),
                                         unpressedImage: Image.asset('${i["coverImage"]}'),
                                         onTap: () {},
                                       ),
@@ -86,7 +103,7 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
                             right: 0.0,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: festivalList_dotted.map((i) {
+                              children: festivalListDotted.map((i) {
                                 return Container(
                                   width: 8.0,
                                   height: 8.0,
@@ -146,7 +163,7 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
               SizedBox(height: 5),
               Center(
                 child: Container(
-                  width: 390,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       color: Colors.white,
@@ -155,40 +172,94 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
                         blurRadius: 5.0,
                       ),]
                   ),
-                  child: CarouselSlider(
-                    height: 200.0,
-                    items: peopleList.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return  Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              ImageButton(
-                                children: <Widget>[],
-                                width: 160,
-                                height: 160,
-                                paddingTop: 5,
-                                pressedImage: Image.asset(
-                                  '${i["coverImage"]}',
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 4, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${peopleList[0]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${peopleList[0]["coverImage"]}'),
+                                  onTap: () {},
                                 ),
-                                unpressedImage: Image.asset('${i["coverImage"]}'),
-                                onTap: () {},
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                '${i["name"]}',
-                                style: TextStyle(
-                                  fontFamily: 'Nanum',
-                                  color: const Color(0xFF000000),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
+                                SizedBox(height: 5),
+                                Text(
+                                  '${peopleList[0]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }).toList(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${peopleList[1]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${peopleList[1]["coverImage"]}'),
+                                  onTap: () {},
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  '${peopleList[1]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(4, 8, 8, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${peopleList[2]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${peopleList[2]["coverImage"]}'),
+                                  onTap: () {},
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  '${peopleList[2]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -245,40 +316,94 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
                         blurRadius: 5.0,
                       ),]
                   ),
-                  child: CarouselSlider(
-                    height: 200.0,
-                    items: concertList.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return  Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              ImageButton(
-                                children: <Widget>[],
-                                width: 160,
-                                height: 160,
-                                paddingTop: 5,
-                                pressedImage: Image.asset(
-                                  '${i["coverImage"]}',
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 4, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${concertList[0]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${concertList[0]["coverImage"]}'),
+                                  onTap: () {},
                                 ),
-                                unpressedImage: Image.asset('${i["coverImage"]}'),
-                                onTap: () {},
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                '${i["name"]}',
-                                style: TextStyle(
-                                  fontFamily: 'Nanum',
-                                  color: const Color(0xFF000000),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
+                                SizedBox(height: 5),
+                                Text(
+                                  '${concertList[0]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }).toList(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${concertList[1]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${concertList[1]["coverImage"]}'),
+                                  onTap: () {},
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  '${concertList[1]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(4, 8, 8, 8),
+                            child: Column(
+                              children: <Widget>[
+                                ImageButton(
+                                  children: <Widget>[],
+                                  height: 125,
+                                  pressedImage: Image.asset('${concertList[2]["coverImage"]}'),
+                                  unpressedImage: Image.asset('${concertList[2]["coverImage"]}'),
+                                  onTap: () {},
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  '${concertList[2]["name"]}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nanum',
+                                    color: const Color(0xFF000000),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
