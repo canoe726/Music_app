@@ -154,6 +154,7 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: GridView.builder(
+                      physics: new NeverScrollableScrollPhysics(),
                       itemCount: gridImgs.length,
                       gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
                       itemBuilder: (BuildContext context, int index){
@@ -197,6 +198,7 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: GridView.builder(
+                      physics: new NeverScrollableScrollPhysics(),
                       itemCount: gridImgs.length,
                       gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
                       itemBuilder: (BuildContext context, int index){
