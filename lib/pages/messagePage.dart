@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/pages/chatPage.dart';
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) : super(key: key);
@@ -13,111 +14,62 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 10.0, 0.0, 0.0),
-            child: Text(
-              "USER",
-              style: TextStyle(
-                fontSize: 30,
-                color: Color(0xFF34558b),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 5.0),
-            child: Divider(
-              color: Colors.grey,
-              height: 5,
-              thickness: 3,
-            ),
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
-              backgroundColor: Colors.transparent,
-              radius: 30,
-            ),
-            title: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '빈지노',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF34558b),
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+          child: ListView.builder(
+              itemCount: 2,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
+                    backgroundColor: Colors.transparent,
+                    radius: 30,
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '빈지노',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF34558b),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 3, 0, 0),
+                          child: Icon(
+                            Icons.notifications,
+                            size: 15,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 3, 0, 0),
-                    child: Icon(
-                      Icons.notifications,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                '안녕하세요',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
-              backgroundColor: Colors.transparent,
-              radius: 30,
-            ),
-            title: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '빈지노2',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF34558b),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(
+                      '안녕하세요',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 3, 0, 0),
-                    child: Icon(
-                      Icons.notifications_off,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                '안녕못해요',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            onLongPress: () {
-              _showDialog();
-            },
-          ),
-        ],
-      ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatPage()),
+                    );
+                  },
+                  onLongPress: () {
+                    _showDialog();
+                  },
+                );
+              })),
     ));
   }
 
@@ -147,7 +99,8 @@ class _MessagePageState extends State<MessagePage> {
                           itemCount: dialogStr.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
+                              padding: const EdgeInsets.fromLTRB(
+                                  8.0, 12.0, 8.0, 8.0),
                               child: Text(dialogStr[index]),
                             );
                           }),
