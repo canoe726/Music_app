@@ -5,6 +5,9 @@ import 'package:music_app/components/textButton.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'profilePage.dart';
+import 'profilePage.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -202,7 +205,11 @@ class _HomePageState extends State<HomePage> {
                       itemCount: gridImgs.length,
                       gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
                       itemBuilder: (BuildContext context, int index){
-                        return Image.asset(gridImgs[9-index]);
+                        return GestureDetector(
+                          onTap: (){
+                          },
+                          child : Image.asset(gridImgs[9-index])
+                        );
                       },
                     ),
                   )

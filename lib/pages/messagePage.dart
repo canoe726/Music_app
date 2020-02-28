@@ -8,6 +8,7 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  List<String> dialogStr = ["대화방 나가기", "대화방 알림끄기", "대화방 안나가기", "대화방 알림켜기"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,9 +112,49 @@ class _MessagePageState extends State<MessagePage> {
                 ),
               ),
             ),
+            onLongPress: () {
+              _showDialog();
+            },
           ),
         ],
       ),
     ));
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            content: Container(
+              padding: EdgeInsets.all(0.0),
+              width: double.maxFinite,
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "길게 눌러보기",
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: dialogStr.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
+                              child: Text(dialogStr[index]),
+                            );
+                          }),
+                    )
+                  ]),
+            ),
+          );
+        });
   }
 }
