@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/data/profileFormat.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key key}) : super(key: key);
+  final User userInfo;
+  ProfilePage({Key key, @required this.userInfo}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Row(
               children: <Widget>[
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
+                  backgroundImage: AssetImage(widget.userInfo.imgLoc),
                   backgroundColor: Colors.transparent,
                   radius: 30,
                 ),
@@ -35,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Row(
                           children: <Widget>[
                             Text(
-                              "김영배",
+                              widget.userInfo.name,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: const Color(0xFF34558b),
@@ -44,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Padding(
                               padding: const EdgeInsets.only(left: 2.0),
                               child: Text(
-                                "canoe",
+                                widget.userInfo.id,
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
@@ -154,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           children: <Widget>[
                             Text(
-                              'Boogie On & On',
+                              widget.userInfo.songName,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: const Color(0xFF34558b),
@@ -163,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Padding(
                               padding: const EdgeInsets.only(left: 6.0),
                               child: Text(
-                                '2020년 2월 25일',
+                                widget.userInfo.uploadDate,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: const Color(0xFF555555),
@@ -188,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image:
-                                        AssetImage('assets/beenzinoAlbum.jpg'),
+                                        AssetImage(widget.userInfo.imgLoc),
                                     fit: BoxFit.cover)),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(
@@ -204,8 +207,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         Text(
-                          '난 괜찮아아아아아ㅏ아아아아아앙',
-                          style: TextStyle(fontSize: 12.0),
+                          widget.userInfo.comment,
+                          style: TextStyle(fontSize: 14.0),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 20.0),
