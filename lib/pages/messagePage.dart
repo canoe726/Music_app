@@ -60,10 +60,7 @@ class _MessagePageState extends State<MessagePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatPage()),
-                    );
+                    openChatPage(context);
                   },
                   onLongPress: () {
                     _showDialog();
@@ -110,4 +107,6 @@ class _MessagePageState extends State<MessagePage> {
           );
         });
   }
+  openChatPage(BuildContext context) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => ChatPage()));
 }

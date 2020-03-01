@@ -189,11 +189,7 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProfilePage(userInfo:albumInfo[index]))
-                                );
+                               openTimeLime(context, index);
                               },
                               child: Image.asset(albumInfo[index].imgLoc));
                         },
@@ -244,11 +240,7 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                               onTap: () {
-                                    Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProfilePage(userInfo:albumInfo[9-index]))
-                                );
+                                   openTimeLime(context, 9-index);
                               },
                               child: Image.asset(albumInfo[9 - index].imgLoc));
                         },
@@ -262,4 +254,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  openTimeLime(BuildContext context, int index) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => ProfilePage(userInfo:albumInfo[index])));
 }
