@@ -1,9 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:music_app/pages/homeMorePage.dart';
+import 'package:music_app/data/homeCarouselList.dart';
+import 'package:music_app/components/globalColors.dart' as globalColors;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -13,16 +14,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
+    'homeMorePage': GlobalKey<NavigatorState>(),
+  };
 
   int _current = 0;
-  List<Map<String, String>> carouselList = [
-    {"avatar": "assets/beenzinoProfile.jpg", "title_name":"빈지노", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boogie on & on", "album_cover":"assets/beenzinoAlbum.jpg"},
-    {"avatar": "assets/changmoProfile.jpg", "title_name":"창모", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boyhood", "album_cover":"assets/changmoAlbum.jpg"},
-    {"avatar": "assets/beenzinoProfile.jpg", "title_name":"빈지노", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boogie on & on", "album_cover":"assets/beenzinoAlbum.jpg"},
-    {"avatar": "assets/changmoProfile.jpg", "title_name":"창모", "title_content":"님이 게시물을 올렸습니다.", "album_title":"Boyhood", "album_cover":"assets/changmoAlbum.jpg"},
-  ];
+  List<HomeCarouselList> homeCarouselList = new List<HomeCarouselList>();
+  List carouselDotted = [];
 
-  List dotted = [0, 1, 2, 3];
+  _HomePageState() {
+    // init HomeCarouselList
+    HomeCarouselList carouselItem = new HomeCarouselList("assets/beenzinoProfile.jpg", "빈지노", "님이 게시물을 올렸습니다.", "Boogie on & on", "assets/beenzinoAlbum.jpg");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/changmoProfile.jpg", "창모", "님이 게시물을 올렸습니다.", "Boyhood", "assets/changmoAlbum.jpg");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/batsagongImage.jpg", "뱃사공", "님이 게시물을 올렸습니다.", "기린", "assets/gridSample3.png");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/kidImage.jpg", "키드밀리", "님 게시물을 올렸습니다.", "L I F E", "assets/gridSample2.png");
+    homeCarouselList.add(carouselItem);
+
+    // init dotted
+    for(var i=0; i<homeCarouselList.length; i++) {
+      carouselDotted.add(i);
+    }
+  }
 
   List<String> gridImgs = ["assets/gridSample1.png", "assets/gridSample2.png", "assets/gridSample3.png", "assets/gridSample4.png",
                       "assets/gridSample5.png","assets/gridSample6.png","assets/gridSample7.png","assets/gridSample8.png",
@@ -32,24 +50,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Center(
                 child: Stack(
-                  children: [
-                    CarouselSlider(
-                      height: 250.0,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _current = index;
-                        });
-                      },
-                      items: carouselList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
+                    children: [
+                      CarouselSlider(
+                        height: 250.0,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _current = index;
+                          });
+                        },
+                        items: homeCarouselList.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Container(
                                 width: MediaQuery.of(context).size.width,
                                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Card(
@@ -59,13 +76,13 @@ class _HomePageState extends State<HomePage> {
                                     children: <Widget>[
                                       ListTile(
                                         leading: CircleAvatar(
-                                          backgroundImage: AssetImage('${i["avatar"]}'),
+                                          backgroundImage: AssetImage('${i.avatar}'),
                                           backgroundColor: Colors.transparent,
                                         ),
-                                        title: Text('${i["title_name"]}' + " " + '${i["title_content"]}'),
+                                        title: Text('${i.artistName}' + " " + '${i.content}'),
                                       ),
                                       Text(
-                                        '${i["album_title"]}',
+                                        '${i.albumTitle}',
                                         style: TextStyle(
                                             fontSize: 15.0,
                                             fontFamily: 'Nanum'
@@ -82,9 +99,9 @@ class _HomePageState extends State<HomePage> {
                                               height: 130,
                                               paddingTop: 5,
                                               pressedImage: Image.asset(
-                                                  '${i["album_cover"]}',
+                                                '${i.albumCover}',
                                               ),
-                                              unpressedImage: Image.asset('${i["album_cover"]}'),
+                                              unpressedImage: Image.asset('${i.albumCover}'),
                                               onTap: () {},
                                             ),
                                           ),
@@ -94,61 +111,65 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    Positioned(
-                        bottom: 5.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: dotted.map((i) {
-                            return Container(
-                              width: 8.0,
-                              height: 8.0,
-                              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: _current == i ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4)
-                              ),
-                            );
-                          }).toList(),
-                        )
-                    )
-                  ]
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      Positioned(
+                          bottom: 5.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: carouselDotted.map((i) {
+                              return Container(
+                                width: 8.0,
+                                height: 8.0,
+                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _current == i ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4)
+                                ),
+                              );
+                            }).toList(),
+                          )
+                      )
+                    ]
                 )
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 5),
-                  Text(
-                    'Most Liked Today',
-                    style: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                    ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 5),
+                Text(
+                  'Most Liked Today',
+                  style: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: globalColors.classicBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
                   ),
-                  Expanded(child:Text(''),),
-                  TextButton(
-                    buttonName:'더보기',
-                    onPressed: () {},
-                    buttonTextStyle: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
-                    ),
+                ),
+                Expanded(child:Text(''),),
+                TextButton(
+                  buttonName:'더보기',
+                  // page convert method is down
+                  onPressed: () {
+                    Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                    Navigator.push(context, route);
+                  },
+                  buttonTextStyle: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: globalColors.classicBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
                   ),
-                ],
-              ),
-              Center(
-                child: Container(
+                ),
+              ],
+            ),
+            Center(
+              child: Container(
                   width: double.infinity,
                   height: 200,
                   child: Padding(
@@ -162,37 +183,40 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   )
-                ),
               ),
+            ),
 
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 5),
-                  Text(
-                    'Most Reposted Today',
-                    style: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                    ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 5),
+                Text(
+                  'Most Reposted Today',
+                  style: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: globalColors.classicBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
                   ),
-                  Expanded(child:Text(''),),
-                  TextButton(
-                    buttonName:'더보기',
-                    onPressed: () {},
-                    buttonTextStyle: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
-                    ),
+                ),
+                Expanded(child:Text(''),),
+                TextButton(
+                  buttonName:'더보기',
+                  onPressed: () {
+                    Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                    Navigator.push(context, route);
+                  },
+                  buttonTextStyle: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: globalColors.classicBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
                   ),
-                ],
-              ),
-              Center(
-                child: Container(
+                ),
+              ],
+            ),
+            Center(
+              child: Container(
                   width: double.infinity,
                   height: 200,
                   child: Padding(
@@ -206,11 +230,10 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   )
-                ),
               ),
-              SizedBox(height: 10),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );
