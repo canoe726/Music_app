@@ -6,6 +6,7 @@ import 'package:music_app/pages/musicListPage.dart';
 import 'package:music_app/pages/messagePage.dart';
 import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
+import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,7 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   int selectedIndex = 0;
 
   final _homePage = GlobalKey<NavigatorState>();
@@ -53,16 +53,8 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               DrawerHeader(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(child: Text(''),),
-                        IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -311,10 +303,12 @@ class _HomeState extends State<Home> {
   }
 
   Widget createBottom() {
+    double sliderHeight = kBottomNavigationBarHeight;
+    var padding = MediaQuery.of(context).padding;
+    sliderHeight = MediaQuery.of(context).size.height - padding.top - padding.bottom - kBottomNavigationBarHeight;
+
     List<Widget> widgets = [];
-    widgets.add(
-        Container(width: double.infinity,height: 50, color: globalColors.classicBlue)
-    );
+    widgets.add(musicPlaySliceUpPanel(sliderHeight));
     widgets.add(
       BottomNavigationBar(
         backgroundColor: globalColors.classicBlue,
@@ -322,13 +316,12 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        // selectedItemColor: Colors.grey,
+        selectedItemColor: Colors.grey,
         unselectedItemColor: Colors.white,
         onTap: (index) => onItemTapped(index, context),
         items: items,
       ),
     );
-
     return Column(mainAxisSize: MainAxisSize.min, children: widgets);
   }
 }
