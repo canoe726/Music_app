@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
-import 'package:custom_navigator/custom_navigation.dart';
 import 'package:music_app/pages/homePage.dart';
 import 'package:music_app/pages/musicListPage.dart';
 import 'package:music_app/pages/messagePage.dart';
 import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
-import 'package:music_app/data/profileFormat.dart' as profileFormat;
+// import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,12 +15,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int selectedIndex = 0;
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  final _homePage = GlobalKey<NavigatorState>();
+  final _musicListPage = GlobalKey<NavigatorState>();
+  final _messagePage = GlobalKey<NavigatorState>();
+  final _musicInfoPage = GlobalKey<NavigatorState>();
+  final _profilePage = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      scaffold: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: globalColors.classicBlue,
@@ -50,18 +53,8 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               DrawerHeader(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(''),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -86,7 +79,7 @@ class _HomeState extends State<Home> {
                                 Text(
                                   '님의 계정',
                                   style: TextStyle(
-                                    fontSize: 15.0,
+                                      fontSize: 15.0,
                                     color: globalColors.lightGrey,
                                     fontFamily: 'Nanum',
                                     fontWeight: FontWeight.bold,
@@ -103,7 +96,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             TextButton(
-                              buttonName: '로그아웃',
+                              buttonName:'로그아웃',
                               onPressed: () {},
                               buttonTextStyle: TextStyle(
                                 fontSize: 12,
@@ -121,8 +114,8 @@ class _HomeState extends State<Home> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.date_range,
-                  color: Colors.black,
+                    Icons.date_range,
+                    color: Colors.black,
                 ),
                 title: Text(
                   'TIMELINE',
@@ -212,35 +205,48 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: globalColors.classicBlue,
-          currentIndex: selectedIndex,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          // selectedItemColor: Colors.grey,
-          unselectedItemColor: Colors.white,
-          onTap: onItemTapped,
-          items: items,
+        body: IndexedStack(
+          index: selectedIndex,
+          children: <Widget>[
+            MaterialApp(
+            title: "HomePage Route",
+              initialRoute: '/',
+              routes: {
+                '/' : (BuildContext context) => HomePage(),
+              },
+            ),
+            MaterialApp(
+              title: "MusicListPage Route",
+              initialRoute: '/',
+              routes: {
+                '/' : (BuildContext context) => MusicListPage(),
+              },
+            ),
+            MaterialApp(
+              title: "MessagePage Route",
+              initialRoute: '/',
+              routes: {
+                '/' : (BuildContext context) => MessagePage(),
+              },
+            ),
+            MaterialApp(
+              title: "MusicInfoPage Route",
+              initialRoute: '/',
+              routes: {
+                '/' : (BuildContext context) => MusicInfoPage(),
+              },
+            ),
+            MaterialApp(
+              title: "ProfilePage Route",
+              initialRoute: '/',
+              routes: {
+                '/' : (BuildContext context) => ProfilePage(),
+              },
+            ),
+          ]
         ),
-      ),
-      children: <Widget>[
-        HomePage(),
-        MusicListPage(),
-        MessagePage(),
-        MusicInfoPage(),
-        ProfilePage(
-          userInfo: profileFormat.User(
-              id: 'beenzino_',
-              name: '빈지노',
-              songName: 'Aqua Man',
-              uploadDate: "2012년 07월 03일",
-              imgLoc: 'assets/beenzinoAlbum.jpg',
-              comment: '아꾸아매엔엔'),
-        ),
-      ],
-      onItemTap: (index) {},
-    );
+        bottomNavigationBar: createBottom(),
+      );
   }
 
   final items = [
@@ -267,9 +273,56 @@ class _HomeState extends State<Home> {
   ];
 
   // get Index from bottomNavigation Item
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
+  void onItemTapped(int index, BuildContext context) {
+    if( selectedIndex == index ) {
+      switch (index) {
+        case 0:
+          _homePage.currentState.popUntil((route) => route.isFirst);
+          break;
+        case 1:
+          _musicListPage.currentState.popUntil((route) => route.isFirst);
+          break;
+        case 2:
+          _messagePage.currentState.popUntil((route) => route.isFirst);
+          break;
+        case 3:
+          _musicInfoPage.currentState.popUntil((route) => route.isFirst);
+          break;
+        case 4:
+          _profilePage.currentState.popUntil((route) => route.isFirst);
+          break;
+        default:
+      }
+    } else {
+      if( mounted ) {
+        setState(() {
+          selectedIndex = index;
+        });
+      }
+    }
+  }
+
+  Widget createBottom() {
+    double sliderHeight = kBottomNavigationBarHeight;
+    var padding = MediaQuery.of(context).padding;
+    sliderHeight = MediaQuery.of(context).size.height - padding.top - padding.bottom - kBottomNavigationBarHeight;
+
+    List<Widget> widgets = [];
+    // widgets.add(musicPlaySliceUpPanel(sliderHeight));
+    widgets.add(
+      BottomNavigationBar(
+        backgroundColor: globalColors.classicBlue,
+        currentIndex: selectedIndex,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.white,
+        onTap: (index) => onItemTapped(index, context),
+        items: items,
+      ),
+    );
+    return Column(mainAxisSize: MainAxisSize.min, children: widgets);
   }
 }
+
