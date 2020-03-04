@@ -6,7 +6,7 @@ import 'package:music_app/pages/musicListPage.dart';
 import 'package:music_app/pages/messagePage.dart';
 import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
-// import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
+import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 
 class Home extends StatefulWidget {
   @override
