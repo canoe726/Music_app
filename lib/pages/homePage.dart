@@ -46,212 +46,210 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                  child: Stack(children: [
-                CarouselSlider(
-                  height: 250.0,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _current = index;
-                    });
-                  },
-                  items: homeCarouselList.map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Card(
-                            elevation: 5.0,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('${i["avatar"]}'),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                  title: Text('${i["title_name"]}' +
-                                      " " +
-                                      '${i["title_content"]}'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Center(
+                child: Stack(children: [
+              CarouselSlider(
+                height: 250.0,
+                onPageChanged: (index) {
+                  setState(() {
+                    _current = index;
+                  });
+                },
+                items: homeCarouselList.map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Card(
+                          elevation: 5.0,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('${i["avatar"]}'),
+                                  backgroundColor: Colors.transparent,
                                 ),
-                                Text(
-                                  '${i["album_title"]}',
-                                  style: TextStyle(
-                                      fontSize: 15.0, fontFamily: 'Nanum'),
-                                ),
-                                SizedBox(height: 5.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: ImageButton(
-                                        children: <Widget>[],
-                                        width: 130,
-                                        height: 130,
-                                        paddingTop: 5,
-                                        pressedImage: Image.asset(
-                                          '${i["album_cover"]}',
-                                        ),
-                                        unpressedImage:
-                                            Image.asset('${i["album_cover"]}'),
-                                        onTap: () {},
+                                title: Text('${i["title_name"]}' +
+                                    " " +
+                                    '${i["title_content"]}'),
+                              ),
+                              Text(
+                                '${i["album_title"]}',
+                                style: TextStyle(
+                                    fontSize: 15.0, fontFamily: 'Nanum'),
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: ImageButton(
+                                      children: <Widget>[],
+                                      width: 130,
+                                      height: 130,
+                                      paddingTop: 5,
+                                      pressedImage: Image.asset(
+                                        '${i["album_cover"]}',
                                       ),
+                                      unpressedImage:
+                                          Image.asset('${i["album_cover"]}'),
+                                      onTap: () {},
                                     ),
-                                  ],
-                                ),
-                                SizedBox(height: 15.0),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15.0),
+                            ],
                           ),
-                        );
-                      },
-                    );
-                  }).toList(),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              Positioned(
+                  bottom: 5.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: dotted.map((i) {
+                      return Container(
+                        width: 8.0,
+                        height: 8.0,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 2.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _current == i
+                                ? Color.fromRGBO(0, 0, 0, 0.9)
+                                : Color.fromRGBO(0, 0, 0, 0.4)),
+                      );
+                    }).toList(),
+                  ))
+            ])),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 5),
+                Text(
+                  'Most Liked Today',
+                  style: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: const Color(0xFF34558b),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                  ),
                 ),
-                Positioned(
-                    bottom: 5.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: dotted.map((i) {
-                        return Container(
-                          width: 8.0,
-                          height: 8.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 2.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _current == i
-                                  ? Color.fromRGBO(0, 0, 0, 0.9)
-                                  : Color.fromRGBO(0, 0, 0, 0.4)),
-                        );
-                      }).toList(),
-                    ))
-              ])),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 5),
-                  Text(
-                    'Most Liked Today',
-                    style: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
+                Expanded(
+                  child: Text(''),
+                ),
+                TextButton(
+                  buttonName: '더보기',
+                  onPressed: () {
+                    Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                    Navigator.push(context, route);
+                  },
+                  buttonTextStyle: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: const Color(0xFF34558b),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ],
+            ),
+            Center(
+              child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GridView.builder(
+                      physics: new NeverScrollableScrollPhysics(),
+                      itemCount: albumInfo.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 4.0),
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                            onTap: () {
+                              Route route = MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                      userInfo:albumInfo[index]));
+                              Navigator.push(context, route);
+                            },
+                            child: Image.asset(albumInfo[index].imgLoc));
+                      },
                     ),
+                  )),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 5),
+                Text(
+                  'Most Reposted Today',
+                  style: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: const Color(0xFF34558b),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
                   ),
-                  Expanded(
-                    child: Text(''),
+                ),
+                Expanded(
+                  child: Text(''),
+                ),
+                TextButton(
+                  buttonName: '더보기',
+                  onPressed: () {
+                    Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                    Navigator.push(context, route);
+                  },
+                  buttonTextStyle: TextStyle(
+                    fontFamily: 'Nanum',
+                    color: const Color(0xFF34558b),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
                   ),
-                  TextButton(
-                    buttonName: '더보기',
-                    onPressed: () {
-                      Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
-                      Navigator.push(context, route);
-                    },
-                    buttonTextStyle: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
+                ),
+              ],
+            ),
+            Center(
+              child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GridView.builder(
+                      physics: new NeverScrollableScrollPhysics(),
+                      itemCount: albumInfo.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 4.0),
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                            onTap: () {
+                              Route route = MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                      userInfo:albumInfo[9-index]));
+                              Navigator.push(context, route);
+                            },
+                            child: Image.asset(albumInfo[9 - index].imgLoc));
+                      },
                     ),
-                  ),
-                ],
-              ),
-              Center(
-                child: Container(
-                    width: double.infinity,
-                    height: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: GridView.builder(
-                        physics: new NeverScrollableScrollPhysics(),
-                        itemCount: albumInfo.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            crossAxisSpacing: 4.0,
-                            mainAxisSpacing: 4.0),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                              onTap: () {
-                                Route route = MaterialPageRoute(
-                                    builder: (context) => ProfilePage(
-                                        userInfo:albumInfo[index]));
-                                Navigator.push(context, route);
-                              },
-                              child: Image.asset(albumInfo[index].imgLoc));
-                        },
-                      ),
-                    )),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 5),
-                  Text(
-                    'Most Reposted Today',
-                    style: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(''),
-                  ),
-                  TextButton(
-                    buttonName: '더보기',
-                    onPressed: () {
-                      Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
-                      Navigator.push(context, route);
-                    },
-                    buttonTextStyle: TextStyle(
-                      fontFamily: 'Nanum',
-                      color: const Color(0xFF34558b),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-              Center(
-                child: Container(
-                    width: double.infinity,
-                    height: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: GridView.builder(
-                        physics: new NeverScrollableScrollPhysics(),
-                        itemCount: albumInfo.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            crossAxisSpacing: 4.0,
-                            mainAxisSpacing: 4.0),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                              onTap: () {
-                                Route route = MaterialPageRoute(
-                                    builder: (context) => ProfilePage(
-                                        userInfo:albumInfo[9-index]));
-                                Navigator.push(context, route);
-                              },
-                              child: Image.asset(albumInfo[9 - index].imgLoc));
-                        },
-                      ),
-                    )),
-              ),
-              SizedBox(height: 10),
-            ],
-          ),
+                  )),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );
