@@ -8,7 +8,6 @@ import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
 import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 import 'package:music_app/data/profileFormat.dart' as profileFormat;
-import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 
 class Home extends StatefulWidget {
   @override
