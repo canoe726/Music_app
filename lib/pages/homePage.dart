@@ -17,38 +17,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _current = 0;
-  List<Map<String, String>> carouselList = [
-    {
-      "avatar": "assets/beenzinoProfile.jpg",
-      "title_name": "빈지노",
-      "title_content": "님이 게시물을 올렸습니다.",
-      "album_title": "Boogie on & on",
-      "album_cover": "assets/beenzinoAlbum.jpg"
-    },
-    {
-      "avatar": "assets/changmoProfile.jpg",
-      "title_name": "창모",
-      "title_content": "님이 게시물을 올렸습니다.",
-      "album_title": "Boyhood",
-      "album_cover": "assets/changmoAlbum.jpg"
-    },
-    {
-      "avatar": "assets/beenzinoProfile.jpg",
-      "title_name": "빈지노",
-      "title_content": "님이 게시물을 올렸습니다.",
-      "album_title": "Boogie on & on",
-      "album_cover": "assets/beenzinoAlbum.jpg"
-    },
-    {
-      "avatar": "assets/changmoProfile.jpg",
-      "title_name": "창모",
-      "title_content": "님이 게시물을 올렸습니다.",
-      "album_title": "Boyhood",
-      "album_cover": "assets/changmoAlbum.jpg"
-    },
-  ];
+  List<HomeCarouselList> homeCarouselList = new List<HomeCarouselList>();
+  List carouselDotted = [];
 
-  List dotted = [0, 1, 2, 3];
+  _HomePageState() {
+    // init HomeCarouselList
+    HomeCarouselList carouselItem = new HomeCarouselList("assets/beenzinoProfile.jpg", "빈지노", "님이 게시물을 올렸습니다.", "Boogie on & on", "assets/beenzinoAlbum.jpg");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/changmoProfile.jpg", "창모", "님이 게시물을 올렸습니다.", "Boyhood", "assets/changmoAlbum.jpg");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/batsagongImage.jpg", "뱃사공", "님이 게시물을 올렸습니다.", "기린", "assets/gridSample3.png");
+    homeCarouselList.add(carouselItem);
+
+    carouselItem = new HomeCarouselList("assets/kidImage.jpg", "키드밀리", "님 게시물을 올렸습니다.", "L I F E", "assets/gridSample2.png");
+    homeCarouselList.add(carouselItem);
+
+    // init dotted
+    for(var i=0; i<homeCarouselList.length; i++) {
+      carouselDotted.add(i);
+    }
+  }
 
   List<profileFormat.User> albumInfo = profileFormat.users;
 
@@ -69,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                       _current = index;
                     });
                   },
-                  items: carouselList.map((i) {
+                  items: homeCarouselList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
                         return Container(
@@ -163,7 +153,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     buttonName: '더보기',
-                    onPressed: () {},
+                    onPressed: () {
+                      Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                      Navigator.push(context, route);
+                    },
                     buttonTextStyle: TextStyle(
                       fontFamily: 'Nanum',
                       color: const Color(0xFF34558b),
@@ -217,7 +210,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     buttonName: '더보기',
-                    onPressed: () {},
+                    onPressed: () {
+                      Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
+                      Navigator.push(context, route);
+                    },
                     buttonTextStyle: TextStyle(
                       fontFamily: 'Nanum',
                       color: const Color(0xFF34558b),
