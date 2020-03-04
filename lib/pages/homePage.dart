@@ -94,19 +94,14 @@ class _HomePageState extends State<HomePage> {
                                               width: 130,
                                               height: 130,
                                               paddingTop: 5,
-                                              pressedImage: Image.asset(
-                                                '${i.albumCover}',
-                                              ),
+                                              pressedImage: Image.asset('${i.albumCover}'),
                                               unpressedImage: Image.asset('${i.albumCover}'),
                                               onTap: () {},
                                             ),
                                           ),
-                                        ],
+                                        ]
                                       ),
-                                      unpressedImage:
-                                          Image.asset('${i["album_cover"]}'),
-                                      onTap: () {},
-                                    ),
+                                    ],
                                   ),
                                 ),
                               );
