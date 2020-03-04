@@ -40,9 +40,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  List<String> gridImgs = ["assets/gridSample1.png", "assets/gridSample2.png", "assets/gridSample3.png", "assets/gridSample4.png",
-                      "assets/gridSample5.png","assets/gridSample6.png","assets/gridSample7.png","assets/gridSample8.png",
-                      "assets/gridSample9.png","assets/gridSample10.png"];
+  List<profileFormat.User> albumInfo = profileFormat.users;
 
   @override
   Widget build(BuildContext context) {
@@ -167,23 +165,31 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Center(
-              child: Container(
-                  width: double.infinity,
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GridView.builder(
-                      physics: new NeverScrollableScrollPhysics(),
-                      itemCount: gridImgs.length,
-                      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
-                      itemBuilder: (BuildContext context, int index){
-                        return Image.asset(gridImgs[index]);
-                      },
-                    ),
-                  )
-              ),
-            ),
-
+                child: Container(
+                    width: double.infinity,
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: GridView.builder(
+                        physics: new NeverScrollableScrollPhysics(),
+                        itemCount: albumInfo.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5,
+                            crossAxisSpacing: 4.0,
+                            mainAxisSpacing: 4.0),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: () {
+                                Route route = MaterialPageRoute(
+                                    builder: (context) => ProfilePage(
+                                        userInfo:albumInfo[index]));
+                                Navigator.push(context, route);
+                              },
+                              child: Image.asset(albumInfo[index].imgLoc));
+                        },
+                      ),
+                    )),
+             ),
             SizedBox(height: 10),
             Row(
               children: <Widget>[
@@ -214,22 +220,31 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Center(
-              child: Container(
-                  width: double.infinity,
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GridView.builder(
-                      physics: new NeverScrollableScrollPhysics(),
-                      itemCount: gridImgs.length,
-                      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
-                      itemBuilder: (BuildContext context, int index){
-                        return Image.asset(gridImgs[9-index]);
-                      },
-                    ),
-                  )
+                child: Container(
+                    width: double.infinity,
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: GridView.builder(
+                        physics: new NeverScrollableScrollPhysics(),
+                        itemCount: albumInfo.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5,
+                            crossAxisSpacing: 4.0,
+                            mainAxisSpacing: 4.0),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: () {
+                                Route route = MaterialPageRoute(
+                                    builder: (context) => ProfilePage(
+                                        userInfo:albumInfo[9-index]));
+                                Navigator.push(context, route);
+                              },
+                              child: Image.asset(albumInfo[9 - index].imgLoc));
+                        },
+                      ),
+                    )),
               ),
-            ),
             SizedBox(height: 10),
           ],
         ),
