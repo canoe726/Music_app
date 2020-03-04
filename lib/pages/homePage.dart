@@ -150,7 +150,6 @@ class _HomePageState extends State<HomePage> {
                 Expanded(child:Text(''),),
                 TextButton(
                   buttonName:'더보기',
-                  // page convert method is down
                   onPressed: () {
                     Route route = MaterialPageRoute(builder: (context) => HomeMorePage(homeCarouselList: homeCarouselList));
                     Navigator.push(context, route);
