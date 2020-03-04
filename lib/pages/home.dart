@@ -6,6 +6,7 @@ import 'package:music_app/pages/musicListPage.dart';
 import 'package:music_app/pages/messagePage.dart';
 import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
+import 'package:music_app/data/profileFormat.dart' as profileFormat;
 // import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 
 class Home extends StatefulWidget {
@@ -240,7 +241,16 @@ class _HomeState extends State<Home> {
               title: "ProfilePage Route",
               initialRoute: '/',
               routes: {
-                '/' : (BuildContext context) => ProfilePage(),
+                '/' : (BuildContext context) => ProfilePage(
+                  userInfo: profileFormat.User(
+              id: 'beenzino_',
+              name: '빈지노',
+              songName: 'Aqua Man',
+              uploadDate: "2012년 07월 03일",
+              imgLoc: 'assets/beenzinoAlbum.jpg',
+              comment: '아꾸아매엔엔'),
+                  
+                ),
               },
             ),
           ]
