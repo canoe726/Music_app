@@ -16,10 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
-    'homeMorePage': GlobalKey<NavigatorState>(),
-  };
-
   int _current = 0;
   List<HomeCarouselList> homeCarouselList = new List<HomeCarouselList>();
   List carouselDotted = [];
