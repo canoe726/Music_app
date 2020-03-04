@@ -199,7 +199,11 @@ class _HomePageState extends State<HomePage> {
                   'Most Reposted Today',
                   style: TextStyle(
                     fontFamily: 'Nanum',
+                    color: globalColors.classicBlue,
                     fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                  ),
+                ),
                 Expanded(child:Text(''),),
                 TextButton(
                   buttonName:'더보기',
