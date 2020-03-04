@@ -1,10 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'package:music_app/pages/homeMorePage.dart';
+import 'package:music_app/data/homeCarouselList.dart';
+import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/data/profileFormat.dart' as profileFormat;
 import 'package:music_app/pages/profilePage.dart';
 
