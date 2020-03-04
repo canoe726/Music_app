@@ -14,12 +14,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          Padding(
+        body: SingleChildScrollView(
+                  child: Column(
+            children: <Widget>[
+              Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
             child: Row(
               children: <Widget>[
@@ -89,9 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 )
               ],
             ),
-          ),
-          Divider(),
-          Row(
+              ),
+              Divider(),
+              Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(40.0, 0.0, 30.0, 0.0),
@@ -142,8 +140,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ],
-          ),
-          Padding(
+              ),
+              Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: <Widget>[
@@ -248,9 +246,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 )
               ],
             ),
-          )
-        ],
-      ),
-    )));
+              )
+            ],
+          ),
+        ));
   }
 }
