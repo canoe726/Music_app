@@ -308,7 +308,7 @@ class _HomeState extends State<Home> {
     sliderHeight = MediaQuery.of(context).size.height - padding.top - padding.bottom - kBottomNavigationBarHeight;
 
     List<Widget> widgets = [];
-    // widgets.add(musicPlaySliceUpPanel(sliderHeight));
+    widgets.add(musicPlaySliceUpPanel(sliderHeight));
     widgets.add(
       BottomNavigationBar(
         backgroundColor: globalColors.classicBlue,
