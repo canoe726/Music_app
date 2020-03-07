@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/pages/chatPage.dart';
+import 'package:music_app/data/chatFormat.dart' as chatFormat;
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) : super(key: key);
@@ -9,7 +10,9 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  List<String> dialogStr = ["대화방 나가기", "대화방 알림끄기", "대화방 안나가기", "대화방 알림켜기"];
+  // List<String> dialogStr = ["대화방 나가기", "대화방 알림끄기", "대화방 안나가기", "대화방 알림켜기"];
+  List<chatFormat.User> msgInfo = chatFormat.users;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +20,12 @@ class _MessagePageState extends State<MessagePage> {
       child: Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
           child: ListView.builder(
-              itemCount: 2,
+              itemCount: msgInfo.length,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/beenzinoProfile.jpg'),
+                    backgroundImage: AssetImage(msgInfo[index].imgLoc),
                     backgroundColor: Colors.transparent,
                     radius: 30,
                   ),
@@ -32,7 +35,7 @@ class _MessagePageState extends State<MessagePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '빈지노',
+                          msgInfo[index].name,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -42,7 +45,9 @@ class _MessagePageState extends State<MessagePage> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(5, 3, 0, 0),
                           child: Icon(
-                            Icons.notifications,
+                            msgInfo[index].notify
+                                ? Icons.notifications
+                                : Icons.notifications_off,
                             size: 15,
                             color: Colors.grey,
                           ),
@@ -53,7 +58,7 @@ class _MessagePageState extends State<MessagePage> {
                   subtitle: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text(
-                      '안녕하세요',
+                      msgInfo[index].lastTalk,
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -65,14 +70,14 @@ class _MessagePageState extends State<MessagePage> {
                     Navigator.push(context, route);
                   },
                   onLongPress: () {
-                    _showDialog();
+                    _showDialog(index);
                   },
                 );
               })),
     ));
   }
 
-  void _showDialog() {
+  void _showDialog(userIdx) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -87,7 +92,7 @@ class _MessagePageState extends State<MessagePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "길게 눌러보기",
+                      "대화방 설정",
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
@@ -95,12 +100,33 @@ class _MessagePageState extends State<MessagePage> {
                       padding: const EdgeInsets.only(top: 8.0),
                       child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: dialogStr.length,
+                          itemCount: 2,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(
                                   8.0, 12.0, 8.0, 8.0),
-                              child: Text(dialogStr[index]),
+                              child: index == 0
+                                  ? InkWell(
+                                      child: msgInfo[userIdx].notify
+                                          ? Text("대화방 알림끄기")
+                                          : Text("대화방 알림켜기"),
+                                      onTap: () {
+                                        setState(() {
+                                          msgInfo[userIdx].notify =
+                                              !(msgInfo[userIdx].notify);
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                    )
+                                  : InkWell(
+                                    child: Text("대화방 나가기"),
+                                     onTap: () {
+                                        setState(() {
+                                          msgInfo.removeAt(userIdx);
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                    ),
                             );
                           }),
                     )
