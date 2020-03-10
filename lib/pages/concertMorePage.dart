@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/data/infoPageList.dart';
 
-class ConcertMorePage extends StatelessWidget {
-  ConcertMorePage({this.concertList});
+class ConcertMorePage extends StatefulWidget {
   final List<ConcertList> concertList;
+  ConcertMorePage({Key key, @required this.concertList}) : super(key: key);
 
+  @override
+  _ConcertMorePageState createState() => _ConcertMorePageState();
+}
+
+class _ConcertMorePageState extends State<ConcertMorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +19,7 @@ class ConcertMorePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           child: ListView.builder(
-              itemCount: concertList.length,
+              itemCount: widget.concertList.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
@@ -25,7 +30,7 @@ class ConcertMorePage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Image(
-                            image: AssetImage("${concertList[index].coverImage}"),
+                            image: AssetImage("${widget.concertList[index].coverImage}"),
                             width: 150,
                             height: 150,
                           ),
@@ -33,7 +38,7 @@ class ConcertMorePage extends StatelessWidget {
                           Column(
                             children: <Widget>[
                               Text(
-                                "${concertList[index].title}",
+                                "${widget.concertList[index].title}",
                                 style: TextStyle(
                                   fontFamily: 'Nanum',
                                   color: globalColors.classicBlue,
@@ -43,7 +48,7 @@ class ConcertMorePage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                "${concertList[index].summary}",
+                                "${widget.concertList[index].summary}",
                                 style: TextStyle(
                                   fontFamily: 'Nanum',
                                   color: Colors.black,
@@ -53,7 +58,7 @@ class ConcertMorePage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                "${concertList[index].place}",
+                                "${widget.concertList[index].place}",
                                 style: TextStyle(
                                   fontFamily: 'Nanum',
                                   color: Colors.grey[800],
@@ -63,7 +68,7 @@ class ConcertMorePage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                "${concertList[index].date}",
+                                "${widget.concertList[index].date}",
                                 style: TextStyle(
                                   fontFamily: 'Nanum',
                                   color: Colors.grey[800],

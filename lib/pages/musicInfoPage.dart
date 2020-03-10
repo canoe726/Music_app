@@ -32,23 +32,23 @@ class _MusicInfoPageState extends State<MusicInfoPage> {
     ];
 
     // init PeopleList
-    PeopleList peopleItem = new PeopleList("assets/batsagongImage.jpg", "뱃사공", "잘 돼야 돼 탕아", "래퍼 대부분이 성공을 위해 ‘쇼미더머니’란 힙합 카스트 제도 속으로 투신한 가운데서도 뚝심 있는 움직임은 존재한다. 기형적인 시스템이 지배하는 한국힙합 씬에서 여전히 멋과 낭만을 노래하는 크루, 리짓군즈(Legit Goons)는 대표적이다.", "2020년 2월 24일");
+    PeopleList peopleItem = new PeopleList("assets/batsagongImage.jpg", "뱃사공", "잘 돼야 돼 탕아", "래퍼 대부분이 성공을 위해 ‘쇼미더머니’란 힙합 카스트 제도 속으로 투신한 가운데서도 뚝심 있는 움직임은 존재한다. 기형적인 시스템이 지배하는 한국힙합 씬에서 여전히 멋과 낭만을 노래하는 크루, 리짓군즈(Legit Goons)는 대표적이다.", "2020년 2월 24일", Icons.favorite_border);
     peopleList.add(peopleItem);
 
-    peopleItem = new PeopleList("assets/kidImage.jpg", "키드밀리", "AI, THE PLAYLIST", "더 각 잡고 만든 앨범이 [AI, THE PLAYLIST]이라면, 곧 나오는 EP 앨범은 이제 거기서 작업하다 만 곡들과, 새로 작업한 곡을 섞어서 내는 거에요. 제가 준비하고 있는 ‘nondisclothes’라는 브랜드 이미지에 맞는 컨셉으로 발매하는 앨범일 거 같아요.", "2020년 1월 15일");
+    peopleItem = new PeopleList("assets/kidImage.jpg", "키드밀리", "AI, THE PLAYLIST", "더 각 잡고 만든 앨범이 [AI, THE PLAYLIST]이라면, 곧 나오는 EP 앨범은 이제 거기서 작업하다 만 곡들과, 새로 작업한 곡을 섞어서 내는 거에요. 제가 준비하고 있는 ‘nondisclothes’라는 브랜드 이미지에 맞는 컨셉으로 발매하는 앨범일 거 같아요.", "2020년 1월 15일", Icons.favorite_border);
     peopleList.add(peopleItem);
 
-    peopleItem = new PeopleList("assets/wuImage.jpg", "우원재", "자유롭게 생각하며", "가청 주파수를 뜻하는 오디오 프리퀀시의 약어에요. 우리는 20부터 2만 헤르츠까지밖에 못 듣거든요. 그 범위 안에서만 듣고 그게 전부인 줄 알죠. 그게 인간이고. 또 특히 한국이란 곳은 A부터 F라는 범위 안에서만 등급이 매겨지잖아요. 생각보다 우리 인간은 선입견과 어떤 정해진 것에 반응하며 산다는 걸 표현하고 싶었어요.", "2019년 12월 28일");
+    peopleItem = new PeopleList("assets/wuImage.jpg", "우원재", "자유롭게 생각하며", "가청 주파수를 뜻하는 오디오 프리퀀시의 약어에요. 우리는 20부터 2만 헤르츠까지밖에 못 듣거든요. 그 범위 안에서만 듣고 그게 전부인 줄 알죠. 그게 인간이고. 또 특히 한국이란 곳은 A부터 F라는 범위 안에서만 등급이 매겨지잖아요. 생각보다 우리 인간은 선입견과 어떤 정해진 것에 반응하며 산다는 걸 표현하고 싶었어요.", "2019년 12월 28일", Icons.favorite_border);
     peopleList.add(peopleItem);
 
     // init ConcertList
-    ConcertList concertItem = new ConcertList("assets/indiePoster.jpg", "인디 나이트", "인디 음반 발매 기념", "예술의전당 콘서트홀", "2020-05-13");
+    ConcertList concertItem = new ConcertList("assets/indiePoster.jpg", "인디 나이트", "인디 음반 발매 기념", "예술의전당 콘서트홀", "2020-05-13", Icons.favorite_border);
     concertList.add(concertItem);
 
-    concertItem = new ConcertList("assets/jazzPoster.jpg", "재즈 여행", "재즈 음반 발매 기념", "예술의전당 콘서트홀", "2020-03-07");
+    concertItem = new ConcertList("assets/jazzPoster.jpg", "재즈 여행", "재즈 음반 발매 기념", "예술의전당 콘서트홀", "2020-03-07", Icons.favorite_border);
     concertList.add(concertItem);
 
-    concertItem = new ConcertList("assets/urbanPoster.png", "어반 음악", "어반 음반 발매 기념", "예술의전당 콘서트홀", "2020-01-25");
+    concertItem = new ConcertList("assets/urbanPoster.png", "어반 음악", "어반 음반 발매 기념", "예술의전당 콘서트홀", "2020-01-25", Icons.favorite_border);
     concertList.add(concertItem);
 
     // init festivalDotted

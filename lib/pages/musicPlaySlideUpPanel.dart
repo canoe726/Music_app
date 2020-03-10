@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 Widget musicPlaySliceUpPanel(double sliderHeight) {
   return SlidingUpPanel(
@@ -62,6 +63,7 @@ Widget mainSliderPanel() {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Expanded(child: Text("")),
             Container(
               color: Colors.grey.withOpacity(0.5),
               child: Padding(
@@ -81,6 +83,7 @@ Widget mainSliderPanel() {
                 ),
               )
             ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -116,94 +119,110 @@ Widget mainSliderPanel() {
                 ),
               ],
             ),
-            SizedBox(height: 100),
-            Container(
-              color: Colors.grey.withOpacity(0.5),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        IconButton(
-                          iconSize: 30,
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          icon: Icon(Icons.favorite),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          "1125",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
+            SizedBox(height: 10),
+            StepProgressIndicator(
+              totalSteps: 100,
+              currentStep: 32,
+              size: 6,
+              padding: 0,
+              selectedColor: Colors.red,
+              unselectedColor: Colors.white,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    color: Colors.grey.withOpacity(0.5),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              IconButton(
+                                iconSize: 30,
+                                padding: EdgeInsets.all(0),
+                                color: Colors.white,
+                                icon: Icon(Icons.favorite),
+                                onPressed: () {},
+                              ),
+                              Text(
+                                "1125",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        IconButton(
-                          iconSize: 30,
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          icon: Icon(Icons.message),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          "358",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
+                          Column(
+                            children: <Widget>[
+                              IconButton(
+                                iconSize: 30,
+                                padding: EdgeInsets.all(0),
+                                color: Colors.white,
+                                icon: Icon(Icons.message),
+                                onPressed: () {},
+                              ),
+                              Text(
+                                "358",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        IconButton(
-                          iconSize: 30,
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          icon: Icon(Icons.info),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          "~01.21",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
+                          Column(
+                            children: <Widget>[
+                              IconButton(
+                                iconSize: 30,
+                                padding: EdgeInsets.all(0),
+                                color: Colors.white,
+                                icon: Icon(Icons.info),
+                                onPressed: () {},
+                              ),
+                              Text(
+                                "~01.21",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        IconButton(
-                          iconSize: 30,
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          icon: Icon(Icons.person),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          "~01.02",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
+                          Column(
+                            children: <Widget>[
+                              IconButton(
+                                iconSize: 30,
+                                padding: EdgeInsets.all(0),
+                                color: Colors.white,
+                                icon: Icon(Icons.person),
+                                onPressed: () {},
+                              ),
+                              Text(
+                                "~01.02",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+
           ],
         ),
       ),
@@ -233,7 +252,7 @@ Widget collapsedSlider() {
         Expanded(
           flex: 45,
           child: Text(
-            "지코 (ZICO) - 아무노래 (AnySong)",
+            "빈지노 (Beenzino) - Boogie on & on",
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.normal,

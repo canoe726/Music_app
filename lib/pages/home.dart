@@ -242,14 +242,7 @@ class _HomeState extends State<Home> {
               initialRoute: '/',
               routes: {
                 '/' : (BuildContext context) => ProfilePage(
-                  userInfo: profileFormat.User(
-                  id: 'beenzino_',
-                  name: '빈지노',
-                  songName: 'Aqua Man',
-                  uploadDate: "2012년 07월 03일",
-                  imgLoc: 'assets/beenzinoAlbum.jpg',
-                  comment: '아꾸아매엔엔'
-                  ),
+                  userInfo: profileFormat.myProfile,
                 ),
               },
             ),

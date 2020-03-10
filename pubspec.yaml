@@ -33,6 +33,7 @@ dev_dependencies:
   solid_bottom_sheet: ^0.1.9
   carousel_slider: ^1.4.1
   sliding_up_panel: ^1.0.0
+  step_progress_indicator: ^0.2.0+3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

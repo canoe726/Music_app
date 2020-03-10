@@ -32,32 +32,36 @@ class _GoogleLoginState extends State<GoogleLogin> {
                     ),
                   ),
                   SizedBox(height: 80),
-                  Container(
-                    color: Colors.white,
-                    width: 300,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/googleLogo.png',
-                          width: 30,
-                          height: 30,
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/home', arguments: {
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/home', arguments: {
 
-                            });
-                          },
-                          child: Text(
-                            'Google 계정으로 로그인하기',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.grey,
+                      });
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/googleLogo.png',
+                              width: 30,
+                              height: 30,
                             ),
-                          ),
+                            SizedBox(width: 10),
+                            Text(
+                              'Google 계정으로 로그인하기',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],

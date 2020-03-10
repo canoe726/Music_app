@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/data/infoPageList.dart';
+import 'package:music_app/data/userPlayList.dart';
+import 'package:music_app/pages/donationDialog.dart';
 
-class PeopleMorePage extends StatelessWidget {
-  PeopleMorePage({this.peopleList});
+class PeopleMorePage extends StatefulWidget {
   final List<PeopleList> peopleList;
+  PeopleMorePage({Key key, @required this.peopleList}) : super(key: key);
+
+  @override
+  _PeopleMorePageState createState() => _PeopleMorePageState();
+}
+
+class _PeopleMorePageState extends State<PeopleMorePage> {
+
+  UserPlayList userPlayList;
+
+  _PeopleMorePageState () {
+    userPlayList = new UserPlayList("Reporter", "assets/userProfile1.jpg", "", "", "", "", Icons.favorite);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +28,7 @@ class PeopleMorePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           child: ListView.builder(
-              itemCount: peopleList.length,
+              itemCount: widget.peopleList.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
@@ -27,7 +41,7 @@ class PeopleMorePage extends StatelessWidget {
                           Row(
                             children: <Widget>[
                               Text(
-                                "${peopleList[index].date}",
+                                "${widget.peopleList[index].date}",
                                 style: TextStyle(
                                   fontFamily: 'Nanum',
                                   color: globalColors.lightGrey,
@@ -37,14 +51,25 @@ class PeopleMorePage extends StatelessWidget {
                               ),
                               Expanded(child: Text("")),
                               IconButton(
-                                icon: Icon(Icons.favorite_border),
+                                icon: Icon(widget.peopleList[index].favorite),
                                 color: globalColors.classicBlue,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    if( widget.peopleList[index].favorite == Icons.favorite ) {
+                                      widget.peopleList[index].favorite = Icons.favorite_border;
+                                    } else {
+                                      widget.peopleList[index].favorite = Icons.favorite;
+                                    }
+                                  });
+                                },
                               ),
                               IconButton(
                                 icon: Icon(Icons.monetization_on),
                                 color: globalColors.classicBlue,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Route route = MaterialPageRoute(builder: (context) => DonationDialog(userPlayList: userPlayList));
+                                  Navigator.push(context, route);
+                                },
                               ),
                               IconButton(
                                 icon: Icon(Icons.screen_share),
@@ -54,13 +79,13 @@ class PeopleMorePage extends StatelessWidget {
                             ],
                           ),
                           Image(
-                            image: AssetImage("${peopleList[index].coverImage}"),
+                            image: AssetImage("${widget.peopleList[index].coverImage}"),
                             width: 150,
                             height: 150,
                           ),
                           SizedBox(height: 10),
                           Text(
-                            "${peopleList[index].title}",
+                            "${widget.peopleList[index].title}",
                             style: TextStyle(
                               fontFamily: 'Nanum',
                               color: globalColors.classicBlue,
@@ -70,7 +95,7 @@ class PeopleMorePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            "${peopleList[index].summary}",
+                            "${widget.peopleList[index].summary}",
                             style: TextStyle(
                               fontFamily: 'Nanum',
                               color: Colors.black,

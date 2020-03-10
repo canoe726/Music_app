@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
+import 'package:music_app/components/slideLeftRoute.dart';
 import 'package:music_app/data/userPlayList.dart';
+import 'package:music_app/pages/commentPage.dart';
+import 'package:music_app/pages/donationDialog.dart';
 
 class MusicListPage extends StatefulWidget {
   MusicListPage({Key key}) : super(key: key);
@@ -11,9 +14,6 @@ class MusicListPage extends StatefulWidget {
 
 class _MusicListPageState extends State<MusicListPage> {
 
-  // change favorite icon
-  IconData favorite = Icons.favorite_border;
-
   String userName;
 
   List<UserPlayList> userPlayList = new List<UserPlayList>();
@@ -22,10 +22,10 @@ class _MusicListPageState extends State<MusicListPage> {
     userName = "Song";
 
     // init userPlayList
-    UserPlayList item = new UserPlayList('assets/beenzinoProfile.jpg', 'Boggie on & on', 'assets/beenzinoAlbum.jpg', '이 밤이 와도 이 밤이 가도 I`m always awake', '2012년 7월 3일');
+    UserPlayList item = new UserPlayList('beenzino', 'assets/beenzinoProfile.jpg', 'Boggie on & on', 'assets/beenzinoAlbum.jpg', '이 밤이 와도 이 밤이 가도 I`m always awake', '2012년 7월 3일', Icons.favorite_border);
     userPlayList.add(item);
 
-    item = new UserPlayList( 'assets/changmoProfile.jpg', 'METEOR', 'assets/changmoAlbum.jpg', '“정말 스타 되고 싶어 그럴려면 가서 만나면 돼 악마?”', '2019년 11월 29일');
+    item = new UserPlayList('changmo', 'assets/changmoProfile.jpg', 'METEOR', 'assets/changmoAlbum.jpg', '“정말 스타 되고 싶어 그럴려면 가서 만나면 돼 악마?”', '2019년 11월 29일', Icons.favorite_border);
     userPlayList.add(item);
   }
 
@@ -140,14 +140,14 @@ class _MusicListPageState extends State<MusicListPage> {
                             ),
                             Expanded(child: Text(""),),
                             IconButton(
-                              icon: Icon(favorite),
+                              icon: Icon(userPlayList[index].favorite),
                               color: globalColors.classicBlue,
                               onPressed: () {
                                 setState(() {
-                                  if( favorite == Icons.favorite ) {
-                                    favorite = Icons.favorite_border;
+                                  if( userPlayList[index].favorite == Icons.favorite ) {
+                                    userPlayList[index].favorite = Icons.favorite_border;
                                   } else {
-                                    favorite = Icons.favorite;
+                                    userPlayList[index].favorite = Icons.favorite;
                                   }
                                 });
                               },
@@ -155,12 +155,17 @@ class _MusicListPageState extends State<MusicListPage> {
                             IconButton(
                               icon: Icon(Icons.message),
                               color: globalColors.classicBlue,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, SlideLeftRoute(page: CommentPage(musicianName: userPlayList[index].musicianName)));
+                              },
                             ),
                             IconButton(
                               icon: Icon(Icons.monetization_on),
                               color: globalColors.classicBlue,
-                              onPressed: () {},
+                              onPressed: () {
+                                Route route = MaterialPageRoute(builder: (context) => DonationDialog(userPlayList: userPlayList[index]));
+                                Navigator.push(context, route);
+                              },
                             ),
                           ],
                         ),
@@ -173,4 +178,6 @@ class _MusicListPageState extends State<MusicListPage> {
       ),
     );
   }
+
+
 }
