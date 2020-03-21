@@ -12,11 +12,16 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   List<chat.Chat> chatData = chat.chats;
   chatFormat.User otherUser;
-
+  final TextEditingController _textController = new TextEditingController();
+  FocusNode _focusNode = new FocusNode();
+  List<Widget> chatList = [];
+  
   @override
   Widget build(BuildContext context) {
     otherUser = chatFormat.users[widget.chatRoom.withId];
+    chatList = initChatList(otherUser.id);
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
         body: SafeArea(
       child: Column(
         children: <Widget>[
@@ -47,80 +52,115 @@ class _ChatPageState extends State<ChatPage> {
               thickness: 3,
             ),
           ),
-          Column(
-            children: initChatList(otherUser.id),
-            mainAxisAlignment: MainAxisAlignment.center,
-            )
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                child: Column(
+                  children: chatList,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 0.0),
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: _textController,
+                    onSubmitted: _handleSubmitted,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    focusNode: _focusNode,
+                    decoration:
+                        InputDecoration.collapsed(hintText: "Send a message"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () => _handleSubmitted(_textController.text)),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     ));
   }
 
   List<Widget> initChatList(String idKey) {
-    List<Widget> chatList = [];
+    chatList.clear();
     for (int i = 0; i < chatData.length; i++) {
-      if (chat.chats[i].to == "me" && chat.chats[i].send == idKey) {
+      if (chatData[i].to == "me" && chatData[i].send == idKey) {
         chatList.add(
-         Padding(
-           padding: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 0.0),
-           child: Container(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Card(
-                      color: const Color(0xFFe1e9ff),
-                      elevation: 5.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          chat.chats[i].chat,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Card(
+                  color: const Color(0xFFe1e9ff),
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      chat.chats[i].chat,
+                      style: TextStyle(
+                        fontSize: 16.0,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-         ),
+              ],
+            ),
+          ),
         );
-      } else if(chat.chats[i].send == "me" && chat.chats[i].to == idKey){
+      } else if (chatData[i].send == "me" && chatData[i].to == idKey) {
         chatList.add(
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 0.0),
-          child: Container(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Card(
-                      color: const Color(0xFFe1e9ff),
-                      elevation: 5.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          chat.chats[i].chat,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
+          Container(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Card(
+                  color: const Color(0xFFe1e9ff),
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      chat.chats[i].chat,
+                      style: TextStyle(
+                        fontSize: 16.0,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-        ),
+              ],
+            ),
+          ),
         );
       }
     }
     return chatList;
+  }
+
+  void _handleSubmitted(String text) {
+    setState(() {
+      chatData.add(
+        chat.Chat(text, "me", otherUser.id)
+      );
+    });
+    _textController.clear();
+    _focusNode.unfocus();
   }
 }
