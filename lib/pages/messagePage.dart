@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/data/chats.dart';
 import 'package:music_app/pages/chatPage.dart';
 import 'package:music_app/data/chatFormat.dart' as chatFormat;
 
 class MessagePage extends StatefulWidget {
+  
   MessagePage({Key key}) : super(key: key);
 
   @override
@@ -66,7 +68,12 @@ class _MessagePageState extends State<MessagePage> {
                   ),
                   onTap: () {
                     Route route =
-                        MaterialPageRoute(builder: (context) => ChatPage());
+                        MaterialPageRoute(builder: (context) => ChatPage(
+                          chatRoom: ChatRoom(
+                            mId: "me",
+                            withId: index,
+                          ),
+                        ));
                     Navigator.push(context, route);
                   },
                   onLongPress: () {
