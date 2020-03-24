@@ -8,6 +8,14 @@ import 'package:music_app/pages/musicInfoPage.dart';
 import 'package:music_app/pages/profilePage.dart';
 import 'package:music_app/pages/musicPlaySlideUpPanel.dart';
 import 'package:music_app/data/profileFormat.dart' as profileFormat;
+import 'package:music_app/data/musicList.dart';
+
+List<String> musicPath = ["assets/music/sample1.mp3", "assets/music/sample2.mp3", "assets/music/sample3.mp3",];
+List<String> title = ["빈지노 - 04 Aqua Man", "빈지노 - 05 Summer Madness (Feat. The Quiett)", "빈지노 - 06 I'll Be Back",];
+List<String> artist = ["빈지노", "빈지노", "빈지노", ];
+List<String> collapsedImage = ["assets/beenzinoAlbum.jpg", "assets/beenzinoAlbum.jpg", "assets/beenzinoAlbum.jpg", ];
+List<String> artistImage = ["assets/beenzinoProfile.jpg", "assets/beenzinoProfile.jpg", "assets/beenzinoProfile.jpg", ];
+List<String> albumImage = ["assets/beenzinoAlbum.jpg", "assets/beenzinoAlbum.jpg", "assets/beenzinoAlbum.jpg", ];
 
 class Home extends StatefulWidget {
   @override
@@ -305,13 +313,15 @@ class _HomeState extends State<Home> {
     }
   }
 
+  MusicList musicList = MusicList(musicPath, title, artist, collapsedImage, artistImage, albumImage);
+
   Widget createBottom() {
     double sliderHeight = kBottomNavigationBarHeight;
     var padding = MediaQuery.of(context).padding;
     sliderHeight = MediaQuery.of(context).size.height - padding.top - padding.bottom - kBottomNavigationBarHeight;
 
     List<Widget> widgets = [];
-    widgets.add(musicPlaySliceUpPanel(sliderHeight));
+    widgets.add(MusicPlaySlideUpPanel(sliderHeight: sliderHeight, musicList: musicList,));
     widgets.add(
       BottomNavigationBar(
         backgroundColor: globalColors.classicBlue,
