@@ -3,6 +3,8 @@ import 'package:music_app/data/profileFormat.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/components/slideLeftRoute.dart';
 import 'package:music_app/pages/commentPage.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:share/share.dart';
 
 class ProfilePage extends StatefulWidget {
   final User userInfo;
@@ -13,7 +15,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  
+
+  final assetsAudioPlayer = AssetsAudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,13 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Expanded(child: Text('')),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.screen_share,
-                                  color: globalColors.classicBlue,
-                                ),
-                                onPressed: () {}
-                              )
+                              ShareButton(shareText: widget.userInfo.name),
                             ],
                           ),
                           Padding(
@@ -201,11 +199,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: const EdgeInsets.fromLTRB(0.0, 0.0, 30.0, 30.0),
                                 child: IconButton(
                                   icon: Icon(
-                                    Icons.play_circle_outline,
+                                    widget.userInfo.isMusicPlaying,
                                     size: 60,
                                     color: const Color(0xFFffffff),
                                   ),
-                                  onPressed: () {}
+                                  onPressed: () {
+                                    assetsAudioPlayer.open(widget.userInfo.musicPath);
+                                    setState(() {
+                                      if(widget.userInfo.isMusicPlaying == Icons.play_circle_outline) {
+                                        widget.userInfo.isMusicPlaying = Icons.pause_circle_outline;
+                                        assetsAudioPlayer.play();
+                                      } else {
+                                        widget.userInfo.isMusicPlaying = Icons.play_circle_outline;
+                                        assetsAudioPlayer.pause();
+                                      }
+                                    });
+                                  }
                                 ),
                               ),
                             ),
@@ -259,3 +268,27 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+class ShareButton extends StatelessWidget {
+  final String shareText;
+  ShareButton({Key key, @required this.shareText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(
+          Icons.screen_share,
+          color: globalColors.classicBlue,
+        ),
+        onPressed: () {
+          final RenderBox box = context.findRenderObject();
+          Share.share(shareText,
+              subject: "Sound Cloud",
+              sharePositionOrigin:
+              box.localToGlobal(Offset.zero) &
+              box.size);
+        }
+    );
+  }
+}
+

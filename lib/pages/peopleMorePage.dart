@@ -3,6 +3,7 @@ import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/data/infoPageList.dart';
 import 'package:music_app/data/userPlayList.dart';
 import 'package:music_app/pages/donationDialog.dart';
+import 'package:share/share.dart';
 
 class PeopleMorePage extends StatefulWidget {
   final List<PeopleList> peopleList;
@@ -17,7 +18,7 @@ class _PeopleMorePageState extends State<PeopleMorePage> {
   UserPlayList userPlayList;
 
   _PeopleMorePageState () {
-    userPlayList = new UserPlayList("Reporter", "assets/userProfile1.jpg", "", "", "", "", Icons.favorite);
+    userPlayList = new UserPlayList("Reporter", "assets/userProfile1.jpg", "", "", "", "", "", Icons.favorite, Icons.play_circle_outline);
   }
 
   @override
@@ -71,11 +72,7 @@ class _PeopleMorePageState extends State<PeopleMorePage> {
                                   Navigator.push(context, route);
                                 },
                               ),
-                              IconButton(
-                                icon: Icon(Icons.screen_share),
-                                color: globalColors.classicBlue,
-                                onPressed: () {},
-                              ),
+                              ShareButton(shareText: widget.peopleList[index].summary),
                             ],
                           ),
                           Image(
@@ -112,6 +109,29 @@ class _PeopleMorePageState extends State<PeopleMorePage> {
               }),
         ),
       ),
+    );
+  }
+}
+
+class ShareButton extends StatelessWidget {
+  final String shareText;
+  ShareButton({Key key, @required this.shareText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(
+          Icons.screen_share,
+          color: globalColors.classicBlue,
+        ),
+        onPressed: () {
+          final RenderBox box = context.findRenderObject();
+          Share.share(shareText,
+              subject: "Sound Cloud",
+              sharePositionOrigin:
+              box.localToGlobal(Offset.zero) &
+              box.size);
+        }
     );
   }
 }

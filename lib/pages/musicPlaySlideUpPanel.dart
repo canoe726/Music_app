@@ -33,26 +33,20 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
 
   void _next() {
     currentMusicPosition++;
-
-    if(assetsAudioPlayer.playlist != null){
-      assetsAudioPlayer.playlistNext();
-    } else {
-      _open(currentMusicPosition);
+    if(currentMusicPosition > widget.musicList.musicPath.length ) {
+      currentMusicPosition = 0;
     }
+
+    _open(currentMusicPosition);
   }
 
   void _prev() {
     currentMusicPosition--;
-
-    if(assetsAudioPlayer.playlist != null){
-      assetsAudioPlayer.playlistPrevious();
-    } else {
-      _open(currentMusicPosition);
-    }
-
     if(currentMusicPosition < 0 ) {
-      currentMusicPosition = 0;
+      currentMusicPosition = widget.musicList.musicPath.length - 1;
     }
+
+    _open(currentMusicPosition);
   }
 
   @override
@@ -63,6 +57,11 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
 
   @override
   Widget build(BuildContext context) {
+
+    var curMusicTotalSec = 100;
+    var curMusicCurSec = 0;
+    String curMusicTitle = widget.musicList.title[currentMusicPosition];
+
     return SlidingUpPanel(
       controller: panelController,
       color: Colors.white,
@@ -120,24 +119,28 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(child: Text("")),
-                Container(
-                    color: Colors.grey.withOpacity(0.5),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
+                Flexible(
+                  child: SizedBox(
+                    width:double.infinity,
+                      // color: Colors.grey.withOpacity(0.5),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(18.0),
+                          child: Text(
                             widget.musicList.title[currentMusicPosition],
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Nanum',
-                              fontSize: 16.0,
+                              fontSize: 20.0,
                             ),
                           ),
-                        ],
-                      ),
-                    )
+                        ),
+                      )
+                  ),
                 ),
                 SizedBox(height: 10),
                 Row(
@@ -152,6 +155,10 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                         icon: Icon(Icons.arrow_left),
                         onPressed:  () {
                           _prev();
+                          setState(() {
+                            curMusicTitle = widget.musicList.title[currentMusicPosition];
+                            isMusicPlaying = Icons.pause;
+                          });
                         },
                       ),
                     ),
@@ -164,6 +171,8 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                         icon: Icon(isMusicPlaying),
                         onPressed: () {
                           setState(() {
+                            curMusicTitle = widget.musicList.title[currentMusicPosition];
+
                             if(isMusicPlaying == Icons.play_arrow) {
                               isMusicPlaying = Icons.pause;
 
@@ -189,61 +198,87 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                         icon: Icon(Icons.arrow_right),
                         onPressed:  () {
                           _next();
+                          setState(() {
+                            curMusicTitle = widget.musicList.title[currentMusicPosition];
+                            isMusicPlaying = Icons.pause;
+                          });
                         },
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-                StepProgressIndicator(
-                  totalSteps: 100,
-                  currentStep: 32,
-                  size: 6,
-                  padding: 0,
-                  selectedColor: Colors.red,
-                  unselectedColor: Colors.white,
-                ),
                 SizedBox(height: 5),
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        StreamBuilder(
+                          stream: assetsAudioPlayer.currentPosition,
+                          initialData: const Duration(),
+                          builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+                            Duration duration = Duration();
+                            if (snapshot.hasData) {
+                              duration = snapshot.data;
+                            }
+
+                            return Text(
+                              durationToString(duration),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                        ),
+                        Text(
+                          " - ",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                          ),
+                        ),
+                        StreamBuilder(
+                          stream: assetsAudioPlayer.current,
+                          builder: (BuildContext context, AsyncSnapshot<PlayingAudio> snapshot) {
+                            Duration duration = Duration();
+                            if (snapshot.hasData) {
+                              duration = snapshot.data.duration;
+                              curMusicTotalSec = duration.inSeconds;
+                            }
+
+                            return Text(
+                              durationToString(duration),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15),
                     StreamBuilder(
                       stream: assetsAudioPlayer.currentPosition,
                       initialData: const Duration(),
                       builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
-                        Duration duration = snapshot.data;
-                        return Text(
-                          durationToString(duration),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          ),
-                        );
-                      },
-                    ),
-                    Text(
-                        " - ",
-                        style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
-                    ),
-                    StreamBuilder(
-                      stream: assetsAudioPlayer.current,
-                      builder: (BuildContext context, AsyncSnapshot<PlayingAudio> snapshot) {
                         Duration duration = Duration();
                         if (snapshot.hasData) {
-                          duration = snapshot.data.duration;
+                          duration = snapshot.data;
+                          curMusicCurSec = duration.inSeconds;
                         }
-                        return Text(
-                          durationToString(duration),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          ),
+                        return StepProgressIndicator(
+                          totalSteps: curMusicTotalSec,
+                          currentStep: curMusicCurSec,
+                          size: 6,
+                          padding: 0,
+                          selectedColor: Colors.red,
+                          unselectedColor: Colors.white,
                         );
                       },
                     ),
@@ -370,7 +405,7 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
             Expanded(
               flex: 40,
               child: Text(
-                widget.musicList.title[currentMusicPosition],
+                curMusicTitle,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
@@ -389,6 +424,10 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                     icon: Icon(Icons.arrow_left),
                     onPressed: () {
                       _prev();
+                      setState(() {
+                        curMusicTitle = widget.musicList.title[currentMusicPosition];
+                        isMusicPlaying = Icons.pause;
+                      });
                     },
                   ),
                   IconButton(
@@ -397,6 +436,8 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                     icon: Icon(isMusicPlaying),
                     onPressed: () {
                       setState(() {
+                        curMusicTitle = widget.musicList.title[currentMusicPosition];
+
                         if(isMusicPlaying == Icons.play_arrow) {
                           isMusicPlaying = Icons.pause;
 
@@ -418,6 +459,10 @@ class _MusicPlaySlideUpPanelState extends State<MusicPlaySlideUpPanel> {
                     icon: Icon(Icons.arrow_right),
                     onPressed: () {
                       _next();
+                      setState(() {
+                        curMusicTitle = widget.musicList.title[currentMusicPosition];
+                        isMusicPlaying = Icons.pause;
+                      });
                     },
                   ),
                 ],

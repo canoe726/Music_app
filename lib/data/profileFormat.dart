@@ -7,7 +7,9 @@ class User {
   final String uploadDate;
   final String imgLoc;
   final String comment;
+  final String musicPath;
   IconData favorite;
+  IconData isMusicPlaying;
 
   User({
     this.id,
@@ -16,7 +18,9 @@ class User {
     this.uploadDate,
     this.imgLoc,
     this.comment,
+    this.musicPath,
     this.favorite,
+    this.isMusicPlaying,
   });
 }
 
@@ -27,7 +31,9 @@ User myProfile = User(
   uploadDate: "2012년 07월 03일",
   imgLoc: 'assets/beenzinoAlbum.jpg',
   comment: '아꾸아매엔엔',
+  musicPath: "assets/music/sample1.mp3",
   favorite: Icons.favorite_border,
+  isMusicPlaying: Icons.play_circle_outline,
 );
 
 List<User> users = [
@@ -38,7 +44,8 @@ List<User> users = [
       uploadDate: "2019년 11월 29일",
       imgLoc: 'assets/gridSample1.png',
       comment: '난 네게 처박힐 메뗴오야',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'cjamm',
       name: '씨잼',
@@ -46,7 +53,8 @@ List<User> users = [
       uploadDate: "2019년 05월 16일",
       imgLoc: 'assets/gridSample2.png',
       comment: '킁킁',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'xxx_',
       name: 'XXX',
@@ -54,7 +62,8 @@ List<User> users = [
       uploadDate: "2019년 02월 15일",
       imgLoc: 'assets/gridSample3.png',
       comment: 'xxx',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'O`Domar',
       name: '오도마',
@@ -62,7 +71,8 @@ List<User> users = [
       uploadDate: "2019년 09월 17일",
       imgLoc: 'assets/gridSample4.png',
       comment: '밭밭밭',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'fs_',
       name: 'FUTURISTIC SWAVER',
@@ -70,7 +80,8 @@ List<User> users = [
       uploadDate: "2018년 12월 17일",
       imgLoc: 'assets/gridSample5.png',
       comment: 'off my heaaaad',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'sogumm',
       name: '소금',
@@ -78,7 +89,8 @@ List<User> users = [
       uploadDate: "2019년 09월 27일",
       imgLoc: 'assets/gridSample6.png',
       comment: '안궁금해',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'Samuel_Seo',
       name: '서사무엘',
@@ -86,7 +98,8 @@ List<User> users = [
       uploadDate: "2019년 10월 31일",
       imgLoc: 'assets/gridSample7.png',
       comment: '코스트코 ㅅㅂ',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'crush_',
       name: 'Crush',
@@ -94,7 +107,8 @@ List<User> users = [
       uploadDate: "2019년 12월 05일",
       imgLoc: 'assets/gridSample8.png',
       comment: '크러시',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'he_is_jipsy',
       name: '히피는 집시였다',
@@ -102,7 +116,8 @@ List<User> users = [
       uploadDate: "2019년 11월 18일",
       imgLoc: 'assets/gridSample9.png',
       comment: 'fire',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
   User(
       id: 'yerin_',
       name: '백예린',
@@ -110,5 +125,6 @@ List<User> users = [
       uploadDate: "2019년 12월 10일",
       imgLoc: 'assets/gridSample10.png',
       comment: '상받음',
-      favorite: Icons.favorite_border),
+      favorite: Icons.favorite_border,
+      isMusicPlaying: Icons.play_circle_outline,),
 ];

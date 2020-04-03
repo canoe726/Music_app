@@ -4,6 +4,8 @@ import 'package:music_app/components/slideLeftRoute.dart';
 import 'package:music_app/data/userPlayList.dart';
 import 'package:music_app/pages/commentPage.dart';
 import 'package:music_app/pages/donationDialog.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:share/share.dart';
 
 class MusicListPage extends StatefulWidget {
   MusicListPage({Key key}) : super(key: key);
@@ -22,12 +24,14 @@ class _MusicListPageState extends State<MusicListPage> {
     userName = "Song";
 
     // init userPlayList
-    UserPlayList item = new UserPlayList('beenzino', 'assets/beenzinoProfile.jpg', 'Boggie on & on', 'assets/beenzinoAlbum.jpg', '이 밤이 와도 이 밤이 가도 I`m always awake', '2012년 7월 3일', Icons.favorite_border);
+    UserPlayList item = new UserPlayList('beenzino', 'assets/beenzinoProfile.jpg', 'Boggie on & on', 'assets/beenzinoAlbum.jpg', '이 밤이 와도 이 밤이 가도 I`m always awake', '2012년 7월 3일', 'assets/music/sample5.mp3', Icons.favorite_border, Icons.play_circle_outline);
     userPlayList.add(item);
 
-    item = new UserPlayList('changmo', 'assets/changmoProfile.jpg', 'METEOR', 'assets/changmoAlbum.jpg', '“정말 스타 되고 싶어 그럴려면 가서 만나면 돼 악마?”', '2019년 11월 29일', Icons.favorite_border);
+    item = new UserPlayList('changmo', 'assets/changmoProfile.jpg', 'METEOR', 'assets/changmoAlbum.jpg', '“정말 스타 되고 싶어 그럴려면 가서 만나면 돼 악마?”', '2019년 11월 29일', 'assets/music/sample4.mp3', Icons.favorite_border, Icons.play_circle_outline);
     userPlayList.add(item);
   }
+
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +79,7 @@ class _MusicListPageState extends State<MusicListPage> {
                               ),
                             ),
                             Expanded(child: Text(""),),
-                            IconButton(
-                              icon: Icon(Icons.screen_share),
-                              color: globalColors.classicBlue,
-                              onPressed: () {},
-                            ),
+                            ShareButton(shareText: userPlayList[index].songTitle),
                           ],
                         ),
                         GestureDetector(
@@ -94,11 +94,22 @@ class _MusicListPageState extends State<MusicListPage> {
                             ),
                             child: IconButton(
                               icon: Icon(
-                                Icons.play_circle_outline,
+                                userPlayList[index].isMusicPlaying,
                                 size: 60,
                                 color: Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                assetsAudioPlayer.open(userPlayList[index].musicPath);
+                                setState(() {
+                                  if(userPlayList[index].isMusicPlaying == Icons.play_circle_outline) {
+                                    userPlayList[index].isMusicPlaying = Icons.pause_circle_outline;
+                                    assetsAudioPlayer.play();
+                                  } else {
+                                    userPlayList[index].isMusicPlaying = Icons.play_circle_outline;
+                                    assetsAudioPlayer.pause();
+                                  }
+                                });
+                              },
                             ),
                           ),
                         ),
@@ -178,6 +189,27 @@ class _MusicListPageState extends State<MusicListPage> {
       ),
     );
   }
+}
 
+class ShareButton extends StatelessWidget {
+  final String shareText;
+  ShareButton({Key key, @required this.shareText}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(
+          Icons.screen_share,
+          color: globalColors.classicBlue,
+        ),
+        onPressed: () {
+          final RenderBox box = context.findRenderObject();
+          Share.share(shareText,
+              subject: "Sound Cloud",
+              sharePositionOrigin:
+              box.localToGlobal(Offset.zero) &
+              box.size);
+        }
+    );
+  }
 }
