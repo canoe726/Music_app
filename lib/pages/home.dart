@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/components/CustomSearchDelegate.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/pages/homePage.dart';
@@ -51,7 +52,9 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                showSearch(context: context, delegate: CustomSearchDelegate());
+              },
             )
           ],
         ),
