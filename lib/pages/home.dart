@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/components/CustomSearchDelegate.dart';
+import 'package:music_app/components/CustomSearch.dart';
 import 'package:music_app/components/textButton.dart';
 import 'package:music_app/components/globalColors.dart' as globalColors;
 import 'package:music_app/pages/homePage.dart';
@@ -49,11 +49,17 @@ class _HomeState extends State<Home> {
               fontSize: 20.0,
             ),
           ),
+         
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: CustomSearchDelegate());
+                showSearch(context: context, delegate: CustomSearchDelegate()).then((result){
+                   setState(() {
+                    temp = profileFormat.users[result];
+                    selectedIndex = 4;
+               });
+                 });
               },
             )
           ],
@@ -253,7 +259,7 @@ class _HomeState extends State<Home> {
               initialRoute: '/',
               routes: {
                 '/' : (BuildContext context) => ProfilePage(
-                  userInfo: profileFormat.myProfile,
+                  userInfo: temp,
                 ),
               },
             ),
@@ -262,6 +268,8 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: createBottom(),
       );
   }
+
+  var temp = profileFormat.myProfile;
 
   final items = [
     BottomNavigationBarItem(
